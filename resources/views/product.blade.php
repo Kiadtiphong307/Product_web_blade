@@ -5,6 +5,7 @@
         </h2>
     </x-slot>
 
+    @if (count($products) > 0)
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
@@ -88,7 +89,21 @@
                                 </table>
                             </div>
 
+                            <div class="py-2">
+                                {{ $products->links() }}
+                            </div>     
             </div>
         </div>
     </div>
+    @else
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                <div class="text-2xl p-6 m-6">ไม่พบข้อมูลสินค้า</div>
+            </div>
+        </div>
+    @endif
+
+
+
 </x-app-layout>
