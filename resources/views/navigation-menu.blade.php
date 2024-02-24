@@ -20,6 +20,10 @@
                         {{ __('รายการสินค้า') }}
                     </x-nav-link>
 
+                    <x-nav-link href="{{ route('create') }}" :active="request()->routeIs('create')">
+                        {{ __('เพิ่มสินค้า') }}
+                    </x-nav-link>
+
                 </div>
             </div>
 
