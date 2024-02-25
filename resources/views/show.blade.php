@@ -38,34 +38,35 @@
                                                 สถานะ
                                             </th>
                                             <th scope="col" class="px-6 py-3">
-                                                <span class="sr-only">Edit</span>
+                                                <span class="sr-only">Cart</span>
                                             </th>
-                                            <th scope="col" class="px-6 py-3">
-                                                <span class="sr-only">Delete</span>
-                                            </th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach($products as $index => $product)
+                                        <form method="POST" action="#">
+                                        @csrf 
                                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 {{ $index + 1 }}
                                             </th>
-                                            <td class="px-6 py-4">
+                                            <td name="product_id" class="px-6 py-4">
                                                 {{ $product->product_id }}
                                             </td>
-                                            <td class="px-6 py-4">
+                                            <td name="product_name" class="px-6 py-4">
                                                 {{ $product->product_name }}
                                             </td>
-                                            <td class="px-6 py-4">
+                                            <td name="description" class="px-6 py-4">
                                                 {{ $product->description }}
                                             </td>
-                                            <td class="px-6 py-4">
+                                            <td name="price"class="px-6 py-4">
                                                 {{ $product->price }}
                                             </td>
-                                            <td class="px-6 py-4">
+                                            <td name="stock"class="px-6 py-4">
                                                 {{ $product->stock }}
                                             </td>
+
                                             <td class="px-6 py-4">
                                                 @if($product->stock > 0)
                                                 <button type="button" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">มีสินค้า</button>
@@ -73,20 +74,14 @@
                                                 <button type="button" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">หมด</button>
                                                 @endif
                                             </td>
+
+                                            <td class="px-6 py-4 text-right">
+                                                <button type="submit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">ลงตะกร้า</button>
+                                            </td>
                                             
-                                            <td class="px-6 py-4 text-right">
-                                                <a href="{{ route('edit', $product->product_id) }}"
-                                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                                onclick="return confirm('ต้องการแก้ไขสินค้า {{ $product->product_id }} หรือไม่ ? ')">แก้ไข</a>
-                                            </td>
-                                            <td class="px-6 py-4 text-right">
-                                                <a 
-                                                href="{{ route('delete', $product->product_id) }}" 
-                                                class="font-medium text-red-600 dark:text-red-500 hover:underline"
-                                                onclick="return confirm('ต้องการลบสินค้า {{ $product->product_id }} หรือไม่ ? ')" > ลบ </a>
-                                            </td>
                                         </tr>
                                         @endforeach
+                                        </form>
                                     </tbody>
                                 </table>
                             </div>
@@ -104,6 +99,7 @@
                 <div class="text-2xl p-6 m-6">ไม่พบข้อมูลสินค้า</div>
             </div>
         </div>
+    </div>
     @endif
 
 

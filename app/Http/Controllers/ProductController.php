@@ -13,10 +13,19 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+
+    public function show()
+    {
+        $products = Product::paginate(3);
+        return view('show', compact('products'));
+    }
+
+    
     public function index()
     {
 
-        $products = DB::table('products')->paginate(3);
+        $products = Product::paginate(3);
         return view('product', compact('products'));
 
 
@@ -59,7 +68,7 @@ class ProductController extends Controller
 
         $product_id = uniqid();
 
-        DB::table('products')->insert([
+        Product::insert([
             'product_id' => $product_id,
             'product_name' => $request->product_name,
             'description' => $request->description,
@@ -74,20 +83,13 @@ class ProductController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Product $product)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit($product_id)
     {
-        $product = DB::table('products')->where('product_id', $product_id)->first();
+        $product = Product::where('product_id', $product_id)->first();
     
         return view('edit', compact('product'));
     }
@@ -112,7 +114,7 @@ class ProductController extends Controller
         ]
         );
     
-        DB::table('products')->where('product_id', $product_id)->update([
+        Product::where('product_id', $product_id)->update([
             'product_name' => $request->product_name,
             'description' => $request->description,
             'price' => $request->price,

@@ -16,18 +16,28 @@
                         {{ __('หน้าหลัก') }}
                     </x-nav-link>
 
-                    <x-nav-link href="{{ route('product') }}" :active="request()->routeIs('product')">
-                        {{ __('รายการสินค้า') }}
+                    <x-nav-link href="{{ route('show') }}" :active="request()->routeIs('show')">
+                        {{ __('แสดงรายการสินค้า') }}
                     </x-nav-link>
 
-                    <x-nav-link href="{{ route('create') }}" :active="request()->routeIs('create')">
-                        {{ __('เพิ่มสินค้า') }}
-                    </x-nav-link>
 
                 </div>
+
+                
             </div>
 
+   
             <div class="hidden sm:flex sm:items-center sm:ms-6">
+                <div class="hidden space-x-20 sm:-my-px sm:ms-10 px-50 sm:flex">
+                    <span class="inline-flex rounded-md">
+                        <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
+                            <a href="{{ route('cart') }}" :active="request()->routeIs('cart')">
+                                {{ __('รถเข็น') }}
+                            </a>
+                        </button>
+                    </span>
+                </div>
+
                 <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
                     <div class="ms-3 relative">
@@ -82,8 +92,13 @@
 
                 <!-- Settings Dropdown -->
                 <div class="ms-3 relative">
+
+
+                    
                     <x-dropdown align="right" width="48">
+                        
                         <x-slot name="trigger">
+                            
                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                                 <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
                                     <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
@@ -91,7 +106,7 @@
                             @else
                                 <span class="inline-flex rounded-md">
                                     <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
-                                        {{ Auth::user()->name }}
+                                        สวัสดี  {{ Auth::user()->name }} ! !
 
                                         <svg class="ms-2 -me-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -101,15 +116,31 @@
                             @endif
                         </x-slot>
 
+                        
+
                         <x-slot name="content">
                             <!-- Account Management -->
                             <div class="block px-4 py-2 text-xs text-gray-400">
-                                {{ __('Manage Account') }}
+                                {{ __('ตั้งค่าผู้ใช้') }}
                             </div>
 
                             <x-dropdown-link href="{{ route('profile.show') }}">
-                                {{ __('Profile') }}
+                                {{ __('ผู้ใช้') }}
                             </x-dropdown-link>
+
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('สินค้า') }}
+                            </div>
+
+                            
+                            <x-dropdown-link href="{{ route('product') }}">
+                                {{ __('แก้ไขสินคา') }}
+                            </x-dropdown-link>
+
+                            <x-dropdown-link href="{{ route('create') }}">
+                                {{ __('เพิ่มสินค้า') }}
+                            </x-dropdown-link>
+
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                 <x-dropdown-link href="{{ route('api-tokens.index') }}">
@@ -125,13 +156,16 @@
 
                                 <x-dropdown-link href="{{ route('logout') }}"
                                          @click.prevent="$root.submit();">
-                                    {{ __('Log Out') }}
+                                    {{ __('ออกจากระบบ') }}
                                 </x-dropdown-link>
                             </form>
                         </x-slot>
                     </x-dropdown>
+
                 </div>
             </div>
+
+            
 
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
