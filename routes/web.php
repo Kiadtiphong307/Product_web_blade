@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\CartController;
+
 
 
 /*
@@ -36,8 +36,15 @@ Route::middleware([
 
 
     //รถเข็น
-    Route::get('/cart',[CartController::class,'index'])->name('cart');
     
+    Route::get('/add/{id}', [ProductController::class,'addcart'])->name('addcart');
+
+    Route::get('/cart',[ProductController::class,'cart'])->name('cart');
+
+    Route::delete('/deletecart/{id}',[ProductController::class,'deletecart'])->name('deletecart');
+
+
+
 
     
 
@@ -52,11 +59,11 @@ Route::middleware([
     Route::post('/store',[ProductController::class,'store'])->name('store');
 
     //ลบสินค้า
-    Route::get('/destroy/{product_id}',[ProductController::class,'destroy'])->name('delete');
+    Route::get('/destroy/{id}',[ProductController::class,'destroy'])->name('delete');
     
     //แสดงฟอร์มสำหรับแก้ไขสินค้า และแก้ไขสินค้า
-    Route::get('/edit/{product_id}',[ProductController::class,'edit'])->name('edit');
-    Route::post('/update/{product_id}',[ProductController::class,'update'])->name('update');
+    Route::get('/edit/{id}',[ProductController::class,'edit'])->name('edit');
+    Route::post('/update/{id}',[ProductController::class,'update'])->name('update');
 
     });
 

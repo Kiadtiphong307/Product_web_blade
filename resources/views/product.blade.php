@@ -52,7 +52,7 @@
                                                 {{ $index + 1 }}
                                             </th>
                                             <td class="px-6 py-4">
-                                                {{ $product->product_id }}
+                                                {{ $product->id }}
                                             </td>
                                             <td class="px-6 py-4">
                                                 {{ $product->product_name }}
@@ -75,15 +75,15 @@
                                             </td>
                                             
                                             <td class="px-6 py-4 text-right">
-                                                <a href="{{ route('edit', $product->product_id) }}"
+                                                <a href="{{ route('edit', $product->id) }}"
                                                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                                onclick="return confirm('ต้องการแก้ไขสินค้า {{ $product->product_id }} หรือไม่ ? ')">แก้ไข</a>
+                                                onclick="return confirm('ต้องการแก้ไขสินค้า {{ $product->id }} หรือไม่ ? ')">แก้ไข</a>
                                             </td>
                                             <td class="px-6 py-4 text-right">
                                                 <a 
-                                                href="{{ route('delete', $product->product_id) }}" 
+                                                href="{{ route('delete', $product->id) }}" 
                                                 class="font-medium text-red-600 dark:text-red-500 hover:underline"
-                                                onclick="return confirm('ต้องการลบสินค้า {{ $product->product_id }} หรือไม่ ? ')" > ลบ </a>
+                                                onclick="return confirm('ต้องการลบสินค้า {{ $product->id }} หรือไม่ ? ')" > ลบ </a>
                                             </td>
                                         </tr>
                                         @endforeach
@@ -105,6 +105,7 @@
             </div>
         </div>
     @endif
+
 
 
 

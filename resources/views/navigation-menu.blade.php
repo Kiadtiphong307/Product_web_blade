@@ -32,7 +32,10 @@
                     <span class="inline-flex rounded-md">
                         <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
                             <a href="{{ route('cart') }}" :active="request()->routeIs('cart')">
-                                {{ __('รถเข็น') }}
+                                {{ __('รถเข็น') }} 
+                                <span class="text-red-500">
+                                    {{ count((array) session('cart')) }}
+                                </span>
                             </a>
                         </button>
                     </span>
@@ -256,5 +259,6 @@
                 @endif
             </div>
         </div>
+
     </div>
 </nav>

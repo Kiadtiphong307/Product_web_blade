@@ -17,7 +17,7 @@
                     <p class="text-2xl ...">แก้ไขสินค้า</p>
 
                     <div class="mt-5 text-gray-500 text-sm leading-relaxed" >
-                        <form class="space-y-4" method="POST" action="{{ route('update', $product->product_id) }}">
+                        <form class="space-y-4" method="POST" action="{{ route('update', $product->id) }}">
                             @csrf 
                             <div>
                                 <label for="product_name" class="block text-sm font-medium text-gray-700">ชื่อสินค้า</label>

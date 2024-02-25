@@ -66,10 +66,11 @@ class ProductController extends Controller
     
         );
 
-        $product_id = uniqid();
+        $latestProduct = Product::orderBy('id', 'desc')->first();
+        $id = $latestProduct ? $latestProduct->id + 1 : 1;
 
         Product::insert([
-            'product_id' => $product_id,
+            'id' => $id,
             'product_name' => $request->product_name,
             'description' => $request->description,
             'price' => $request->price,
@@ -87,9 +88,9 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($product_id)
+    public function edit($id)
     {
-        $product = Product::where('product_id', $product_id)->first();
+        $product = Product::where('id', $id)->first();
     
         return view('edit', compact('product'));
     }
@@ -97,7 +98,7 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $product_id)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'product_name' => 'required',
@@ -114,7 +115,7 @@ class ProductController extends Controller
         ]
         );
     
-        Product::where('product_id', $product_id)->update([
+        Product::where('id', $id)->update([
             'product_name' => $request->product_name,
             'description' => $request->description,
             'price' => $request->price,
@@ -129,8 +130,47 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($product_id)
+    public function destroy($id)
     {
-        DB::table('products')->where('product_id', $product_id)->delete();
+        DB::table('products')->where('product_id', $id)->delete();
     }
+
+    public function addcart($id)
+    {
+        $product = Product::findOrfail($id);
+        $cart = session()->get('cart', []);
+        if(isset($cart[$id])){
+            $cart[$id]['stock']++;
+        }else{
+            $cart[$id] = [
+                'id' => $product->id,
+                'product_name' => $product->product_name,
+                'stock' => 1,
+                'description' => $product->description,
+                'price' => $product->price,
+            ];
+        }
+        session()->put('cart',$cart);
+        return redirect()->route('cart')->with('success','เพิ่มสินค้าลงในตะกร้าเรียบร้อย');
+    }
+
+    public function cart()
+    {
+        $cart = session()->get('cart');
+        return view('cart', compact('cart'));
+    }
+
+    public function deletecart($id)
+    {
+        $cart = session()->get('cart');
+        if(isset($cart[$id])){
+            unset($cart[$id]);
+        }
+        session()->put('cart',$cart);
+        return redirect()->route('cart')->with('success','ลบสินค้าออกจากตะกร้าเรียบร้อย');
+    }
+    
+    
+
+
 }
