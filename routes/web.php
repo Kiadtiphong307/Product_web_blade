@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductController;
 
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,6 +44,7 @@ Route::middleware([
 
     Route::delete('/deletecart/{id}',[ProductController::class,'deletecart'])->name('deletecart');
 
+    Route::put('updatecart', [ProductController::class, 'updatecart'])->name('updatecart');
 
 
 

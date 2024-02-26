@@ -135,6 +135,8 @@ class ProductController extends Controller
         DB::table('products')->where('product_id', $id)->delete();
     }
 
+
+    //CartController 
     public function addcart($id)
     {
         $product = Product::findOrfail($id);
@@ -157,7 +159,8 @@ class ProductController extends Controller
     public function cart()
     {
         $cart = session()->get('cart');
-        return view('cart', compact('cart'));
+        $cartQuantityMatches = $this->checkCartQuantity();
+        return view('cart', compact('cart', 'cartQuantityMatches'));
     }
 
     public function deletecart($id)
@@ -167,9 +170,46 @@ class ProductController extends Controller
             unset($cart[$id]);
         }
         session()->put('cart',$cart);
-        return redirect()->route('cart')->with('success','ลบสินค้าออกจากตะกร้าเรียบร้อย');
+        return redirect()->route('cart');
     }
     
+    public function updatecart(Request $request)
+    {
+        $id = $request->id;
+        $stock = $request->stock;
+    
+        $cart = session()->get('cart');
+        if (isset($cart[$id])) {
+            $cart[$id]['stock'] = $stock;
+        }
+        session()->put('cart', $cart);
+    
+        return redirect()->route('cart');
+    }
+    
+    
+    public function checkCartQuantity()
+    {
+        $cart = session()->get('cart');
+        $cartQuantityMatches = true; // เพิ่มตัวแปรเพื่อตรวจสอบจำนวนสินค้าในตะกร้า
+    
+        foreach ($cart as $id => $details) {
+            $product = Product::find($id);
+            
+            if (!$product || $details['stock'] > $product->stock) {
+                $cartQuantityMatches = false; // มีจำนวนสินค้าในตะกร้ามากกว่าในฐานข้อมูลหรือสินค้าไม่มีอยู่ในฐานข้อมูล
+                // เพิ่มการแสดงข้อความเตือน
+                session()->flash('cartQuantityMatches', false);
+                session()->flash('cartMessages.'.$id, [
+                    'product_id' => $id,
+                    'product_name' => $details['product_name'],
+                    'remaining_stock' => $product ? $product->stock : 0 // จำนวนสินค้าที่เหลือในฐานข้อมูล (ถ้ามีสินค้า)
+                ]);
+            }
+        }
+    
+        return $cartQuantityMatches;
+    }
     
 
 
