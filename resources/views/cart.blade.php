@@ -132,7 +132,7 @@
                <div class="py-5">
                         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                             <div class="bg-gray-200 bg-opacity-25 grid grid-cols- md:grid-cols-1 gap-6 lg:gap-78p-6 lg:p-10 "> 
-                                 <p class="text-2xl ...">ที่อยู่</p>
+                                 <p class="text-2xl ...">การจัดส่งสิค้า</p>
                                      <div class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
                                         <form class="space-y-4"  action="#">
                                              @csrf 
@@ -195,7 +195,7 @@
                       <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 text-center">
                         <div class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400" >
-                        <h3 class="text-base font-semibold leading-6 text-gray-900 text-center" id="modal-title">ชำระเงิน</h3>
+                        <h3 class="text-base font-semibold leading-6 text-gray-900 text-center" id="modal-title">การชำระเงิน</h3>
                         </div>
                         </table>
                         <div class="mt-2">
