@@ -30,6 +30,9 @@
                                                                 รหัสสินค้า
                                                             </th>
                                                             <th scope="col" class="px-6 py-3">
+                                                                ตัวอย่างรูปภาพ
+                                                            </th>
+                                                            <th scope="col" class="px-6 py-3">
                                                                 ชื่อสินค้า
                                                             </th>
                                                             <th scope="col" class="px-6 py-3">
@@ -55,16 +58,24 @@
                                                         $totalPrice = 0;
                                                         @endphp
                                                         @if (session('cart'))
-                                                        @foreach ((array) session('cart') as $id => $details)
+                                                        @foreach (session('cart') as $id => $details)
                                                         @php 
                                                         $totalStock += $details['stock'];
                                                         $totalPrice += $details['price']* $details['stock'] 
                                                         @endphp
                                                         <tr rowId="{{ $id }}" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-    
+                                                            
+
                                                             <td class="px-6 py-4">
                                                                 {{ $details['id'] }}
                                                             </td>
+
+                                                            <td class="px-6 py-4">
+                                                                <img src="{{ asset('storage/images/' . ($details['image'] ?? '')) }}" class="w-20 h-20 object-cover rounded-lg">
+                                                            </td>
+                                                            
+                                                            
+                                                            
                                                             <td class="px-6 py-4">
                                                                 {{ $details['product_name'] }}
                                                             </td>

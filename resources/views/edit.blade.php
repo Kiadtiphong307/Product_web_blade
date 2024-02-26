@@ -52,6 +52,18 @@
                                     <div class="alert alert-danger py-2 text-red-600">{{ $message }}</div>
                                 @enderror
                             </div>
+
+                            
+                            <div >
+                                <label for="image" class="block text-sm font-medium text-gray-700 py-2">อัปโหลด</label>
+                                    <input name="image" type="file" id="image" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                <p class="py-2 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">ไฟล์ JPEG, PNG, JPG หรือ WEBP เท่านั้น</p>
+                                @error('image')
+                                <div class="alert alert-danger py-2 text-red-600">{{ $message }}</div>
+                                 @enderror
+                            </div>
+
+                            
                             <div class="py-5">
                                 <input type="submit"  value="บันทึก" onclick="return confirmproduct()" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 p-3"></input>
                             </div>

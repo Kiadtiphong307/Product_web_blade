@@ -53,18 +53,21 @@ class ProductController extends Controller
             'product_name' => 'required',
             'description' => 'required',
             'price' => 'required',
-            'stock'=>'required'
+            'stock'=>'required',
+            'image' => 'required',
         ],
         
         [
             'product_name.required' => '**กรุณากรอกชื่อสินค้า',
             'description.required' => '**กรุณากรอกรายละเอียดสินค้า',
             'price.required' => '**กรุณากรอกราคาสินค้า',
-            'stock.required' => '**กรุณากรอกจำนวนสินค้า'
+            'stock.required' => '**กรุณากรอกจำนวนสินค้า',
+            'image.required' => '**กรุณาอัปโหลดรูปสินค้า'
 
-        ]
+        ],
     
         );
+
 
         $latestProduct = Product::orderBy('id', 'desc')->first();
         $id = $latestProduct ? $latestProduct->id + 1 : 1;
@@ -75,6 +78,7 @@ class ProductController extends Controller
             'description' => $request->description,
             'price' => $request->price,
             'stock' => $request->stock,
+            'image' => $request->image,
             'created_at' => now()
         ]);
 
@@ -104,14 +108,15 @@ class ProductController extends Controller
             'product_name' => 'required',
             'description' => 'required',
             'price' => 'required',
-            'stock'=>'required'
+            'stock'=>'required',
         ],
         
         [
             'product_name.required' => '**กรุณากรอกชื่อสินค้า',
             'description.required' => '**กรุณากรอกรายละเอียดสินค้า',
             'price.required' => '**กรุณากรอกราคาสินค้า',
-            'stock.required' => '**กรุณากรอกจำนวนสินค้า'
+            'stock.required' => '**กรุณากรอกจำนวนสินค้า',
+
         ]
         );
     
@@ -120,6 +125,7 @@ class ProductController extends Controller
             'description' => $request->description,
             'price' => $request->price,
             'stock' => $request->stock,
+            'image' => $request->image,
             'updated_at' => now()
         ]);
     
@@ -139,22 +145,29 @@ class ProductController extends Controller
     //CartController 
     public function addcart($id)
     {
+
         $product = Product::findOrfail($id);
-        $cart = session()->get('cart', []);
-        if(isset($cart[$id])){
+        $cart = session()->get('cart', [] );
+
+        if (isset($cart[$id])) {
             $cart[$id]['stock']++;
-        }else{
+        } else {
             $cart[$id] = [
                 'id' => $product->id,
+                'image' => $product->image,
                 'product_name' => $product->product_name,
                 'stock' => 1,
                 'description' => $product->description,
                 'price' => $product->price,
             ];
         }
-        session()->put('cart',$cart);
-        return redirect()->route('cart')->with('success','เพิ่มสินค้าลงในตะกร้าเรียบร้อย');
+
+        session()->put('cart', $cart);
+        return redirect()->route('cart');
     }
+    
+    
+    
 
     public function cart()
     {
@@ -191,19 +204,19 @@ class ProductController extends Controller
     public function checkCartQuantity()
     {
         $cart = session()->get('cart');
-        $cartQuantityMatches = true; // เพิ่มตัวแปรเพื่อตรวจสอบจำนวนสินค้าในตะกร้า
+        $cartQuantityMatches = true; 
     
         foreach ($cart as $id => $details) {
             $product = Product::find($id);
             
             if (!$product || $details['stock'] > $product->stock) {
-                $cartQuantityMatches = false; // มีจำนวนสินค้าในตะกร้ามากกว่าในฐานข้อมูลหรือสินค้าไม่มีอยู่ในฐานข้อมูล
-                // เพิ่มการแสดงข้อความเตือน
+                $cartQuantityMatches = false; 
+
                 session()->flash('cartQuantityMatches', false);
                 session()->flash('cartMessages.'.$id, [
                     'product_id' => $id,
                     'product_name' => $details['product_name'],
-                    'remaining_stock' => $product ? $product->stock : 0 // จำนวนสินค้าที่เหลือในฐานข้อมูล (ถ้ามีสินค้า)
+                    'remaining_stock' => $product ? $product->stock : 0 
                 ]);
             }
         }
