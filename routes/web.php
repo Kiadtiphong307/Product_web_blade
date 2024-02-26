@@ -1,9 +1,10 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ProductController;
-
+use App\Http\Controllers\OrderController;
 
 
 
@@ -48,8 +49,7 @@ Route::middleware([
 
 
     //ประวัติการสั่งซื้อ
-    Route::get('/order',[ProductController::class,'order'])->name('order');
-
+    Route::get('/order',[OrderController::class,'index'])->name('order');
 
 
     

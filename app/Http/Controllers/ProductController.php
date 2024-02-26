@@ -172,9 +172,15 @@ class ProductController extends Controller
     public function cart()
     {
         $cart = session()->get('cart');
-        $cartQuantityMatches = $this->checkCartQuantity();
-        return view('cart', compact('cart', 'cartQuantityMatches'));
+
+        if ($cart !== null) {
+            $cartQuantityMatches = $this->checkCartQuantity();
+            return view('cart', compact('cart', 'cartQuantityMatches'));
+        } else {
+            return redirect()->route('home')->with('error', 'Your cart is empty.');
+        }
     }
+    
 
     public function deletecart($id)
     {
@@ -223,14 +229,10 @@ class ProductController extends Controller
     
         return $cartQuantityMatches;
     }
-    
 
-    //Order
 
-    public function order()
-    {
-        return view('order');
-    }
+
+
 
 
 }
