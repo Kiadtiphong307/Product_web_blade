@@ -225,5 +225,12 @@ class ProductController extends Controller
     }
     
 
+    //Order
+
+    public function order()
+    {
+        return view('order');
+    }
+
 
 }

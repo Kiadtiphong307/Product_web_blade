@@ -47,6 +47,10 @@ Route::middleware([
     Route::put('updatecart', [ProductController::class, 'updatecart'])->name('updatecart');
 
 
+    //ประวัติการสั่งซื้อ
+    Route::get('/order',[ProductController::class,'order'])->name('order');
+
+
 
     
 

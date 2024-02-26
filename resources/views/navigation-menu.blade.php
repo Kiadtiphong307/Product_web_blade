@@ -26,7 +26,8 @@
 
             {{-- cart menu --}}
             <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <div class="hidden space-x-20 sm:-my-px sm:ms-10 px-50 sm:flex">
+                <div class="hidden space-x-10 sm:-my-px sm:ms-10 px-50 sm:flex">
+
                     <span class="inline-flex rounded-md">
                         <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
                             <a href="{{ route('cart') }}" :active="request()->routeIs('cart')">
@@ -37,7 +38,25 @@
                             </a>
                         </button>
                     </span>
+
+
                 </div>
+
+
+                    <span class="inline-flex rounded-md">
+                        <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
+                            <a href="{{ route('order') }}" :active="request()->routeIs('order')">
+                                {{ __('ประวัติการสั่งซื้อ') }} 
+                                (<span class="text-red-500">
+                                    
+                                </span>)
+                            </a>
+                        </button>
+                    </span>
+
+
+
+
 
                 <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
