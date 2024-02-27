@@ -34,22 +34,34 @@ Route::middleware([
         return view('home');
      })->name('home');
     
+
+
+
+    
     Route::get('/show',[ProductController::class,'show'])->name('show');
 
 
     //รถเข็น
-    
+    Route::get('/cart',[ProductController::class,'cart'])->name('cart');
     Route::get('/add/{id}', [ProductController::class,'addcart'])->name('addcart');
 
-    Route::get('/cart',[ProductController::class,'cart'])->name('cart');
 
     Route::delete('/deletecart/{id}',[ProductController::class,'deletecart'])->name('deletecart');
 
     Route::put('updatecart', [ProductController::class, 'updatecart'])->name('updatecart');
 
 
-    //ประวัติการสั่งซื้อ
+    //จ่ายเงิน
+    Route::get('/payment',[OrderController::class,'payment'])->name('payment');
+    Route::post('/payment',[OrderController::class,'create'])->name('insertorder');
+
+   
+
+
+
+    //ประวัติการสั่งซื้อ database
     Route::get('/order',[OrderController::class,'index'])->name('order');
+    // Route::post('/insertorder',[OrderController::class,'create'])->name('insertorder');
 
 
     

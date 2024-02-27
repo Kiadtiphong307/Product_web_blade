@@ -28,12 +28,6 @@ class ProductController extends Controller
         $products = Product::paginate(3);
         return view('product', compact('products'));
 
-
-        // return response()->json([
-        //     'message' => 'รายการสินค้าทั้งหมด',
-        //     'data' => $products
-        // ], 200);
-
     }
 
     /**
@@ -177,7 +171,7 @@ class ProductController extends Controller
             $cartQuantityMatches = $this->checkCartQuantity();
             return view('cart', compact('cart', 'cartQuantityMatches'));
         } else {
-            return redirect()->route('home')->with('error', 'Your cart is empty.');
+            return redirect()->route('home');
         }
     }
     

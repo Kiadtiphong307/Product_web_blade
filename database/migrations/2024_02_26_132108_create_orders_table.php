@@ -14,17 +14,9 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('order_id');
-            $table->string('product_id');
-            $table->string('product_name');
-            $table->string('stock');
-            $table->string('price');
-            $table->string('total');
             $table->string('name');
             $table->string('address');
             $table->string('phone');
-            $table->string('status');
-            $table->string('session_id');
-            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
