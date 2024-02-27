@@ -66,13 +66,21 @@ class ProductController extends Controller
         $latestProduct = Product::orderBy('id', 'desc')->first();
         $id = $latestProduct ? $latestProduct->id + 1 : 1;
 
+
+        $imageFile = $request->file('image');
+
+        $imageName = $imageFile->getClientOriginalName();
+
+        $imagePath = $imageFile->storeAs('images', $imageName, 'public');
+
+
         Product::insert([
             'id' => $id,
             'product_name' => $request->product_name,
             'description' => $request->description,
             'price' => $request->price,
             'stock' => $request->stock,
-            'image' => $request->image,
+            'image' => $imagePath,
             'created_at' => now()
         ]);
 
@@ -132,7 +140,9 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('products')->where('product_id', $id)->delete();
+        DB::table('products')->where('id', $id)->delete();
+
+        return redirect()->route('product');
     }
 
 

@@ -48,7 +48,7 @@
                             <a href="{{ route('order') }}" :active="request()->routeIs('order')">
                                 {{ __('ประวัติการสั่งซื้อ') }} 
                                 (<span class="text-red-500">
-                                    
+                                    {{ \App\Models\Order::count() }}
                                 </span>)
                             </a>
                         </button>

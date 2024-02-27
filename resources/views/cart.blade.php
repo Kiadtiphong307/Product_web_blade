@@ -1,16 +1,14 @@
 <x-app-layout>
 
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('cart') }}
-        </h2>
-    </x-slot>
-
     <div class="py-12">
         @section('title', 'ตะกร้าสินค้า')
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <div class="text-2xl p-6 m-6">ตระกร้า</div>
+                <div class="text-2xl p-6 m-6">
+                    <div class=" p-6 ">
+                        ตระกร้า
+                    </div>
+                </div>
 
                                 <div class=" p-6 m-6">
                                             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -62,7 +60,7 @@
                                                             </td>
 
                                                             <td class="px-6 py-4">
-                                                                <img src="{{ asset('storage/images/' . ($details['image'] ?? '')) }}" class="w-20 h-20 object-cover rounded-lg">
+                                                                <img src="{{ asset('storage/' . ($details['image'] ?? '')) }}" class="w-20 h-20 object-cover rounded-lg">
                                                             </td>
                                                             
                                                             
@@ -128,11 +126,12 @@
                                                          <p class="text-2xl ...">การจัดส่งสิค้า</p>
                                             
                                                              <div class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
-                                                                <form class="space-y-4" method="post" action="/payment">
-                                                                     @csrf 
+                                                                <form class="space-y-4" method="post" action="{{ route('insertorder') }}" enctype="multipart/form-data">
+
+                                                                    @csrf 
                                                                      <div>
                                                                         <label for="name" class="block text-sm font-medium text-gray-700">ชื่อ-สกุล</label>
-                                                                        <input name="name" type="text" id="name" value="{{ old('name') }} "class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                                                        <input name="name" type="text" id="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                                                     </div> 
                                             
                                                                     @error('name')
@@ -142,7 +141,7 @@
                                             
                                                                     <div>
                                                                         <label for="address" class="block text-sm font-medium text-gray-700">ที่อยู่</label>
-                                                                        <textarea name="address" id="address" value="{{ old('address') }} "class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"></textarea>
+                                                                        <textarea name="address" id="address" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"></textarea>
                                                                     </div>
                                             
                                                                     @error('address')
@@ -151,35 +150,88 @@
                                             
                                                                     <div>
                                                                         <label for="phone" class="block text-sm font-medium text-gray-700">เบอร์โทร</label>
-                                                                        <input  name="phone" type="number" id="phone" value="{{ old('phone') }}  "class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                                                        <input  name="phone" type="number" id="phone" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                                                     </div>
                                             
                                                                     @error('phone')
                                                                     <div class="alert alert-danger py-2 text-red-600">{{ $message }}</div>
                                                                     @enderror
-                                            
-                                                                    <div class="flex justify-end py-5">
-                                            
-                                                                        <div class="focus:outline-none text-white font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 text-right" >
-                                                                            <a class="font-medium text-red-600 dark:text-red-500  text-right">
-                                                                                ยอดชำระเงินทั้งหมด  ({{ $totalStock }}) <br> ฿ {{ $totalPrice }}
-                                                                            </a>
+                                                                    
+
+
+                                                                    <div class="py-12">
+                                                                        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                                                                            
+                                                                            
+                                                                                
+                                                                                            <div class=" p-2.5 ">
+                                                                                                <div class="text-2xl p-4 m-4 text-center">การชำระเงิน</div>
+                                                                                                <div class="text-center py-2">
+                                                                                                    <div>
+                                                                                                        <img src="{{ asset('storage/images/payment.jpg') }}" class="bg-white overflow-hidden shadow-xl sm:rounded-lg" style="width: 250px; height: auto; margin: auto;">
+                                                                
+                                                                                                    </div>
+
+                                                                                                    <div class="focus:outline-none text-white font-medium rounded-lg text-xl px-5 py-2.5 me-2 mb-2 text-center">
+                                                                                                        <div class="font-medium text-red-600 dark:text-red-500 p-2">
+                                                                                                            <a>
+                                                                                                                ยอดชำระเงินทั้งหมด ({{ $totalStock }}) <br> ฿ {{ $totalPrice }}
+                                                                                                            </a>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    
+
+                                                                                                  
+                                                                
+                                                                                                            <div class="text-2xl p-4 m-2 text-center">
+                                                                                                                <div class=" text-red-600 dark:text-red-500 py-2.5 ">
+                                                                                                                     <a>***กรุณาแนบหลักฐานการชำระเงิน*** </a>
+                                                                                                                </div>
+                                                                
+                                                                                                                <button id="uploadButton" class="text-white bg-red-700 hover:bg-red-800 rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                                                                                                                    <input type="file" name="image" onchange="changeButtonColor(event)"> 
+                                                                                                                </button>
+                                                                
+                                                                                                                @error('image')
+                                                                                                                <div class="alert alert-danger py-2 text-red-600">{{ $message }}</div>
+                                                                                                                @enderror
+                                                                                                                
+                                                                                                                <div class="py-5">
+                                    
+                                                                                                                    
+                                                                                                                    <button  class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-green-700 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-800 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                                                                                                                        <a href="show">ยกเลิก</a>
+                                                                                                                    </button>
+                                                                        
+                                                                                                                    <button  type="submit" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                                                                                                                        <a >ชำระเงิน</a>
+                                                                                                                    </button>
+                                                                                                            
+                                                                                                                </div>
+                                                                        
+                                                                                                        </div>
+                                                                                                    
+                                                                                                        
+                                                                                                </div>
+                                                                
+                                                                                            
+                                                                                    </div>
+                                                                                </div>
                                                                         </div>
-                                            
-                                                                    
-                                                                        <button  class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                                                                            <a >ชำระเงิน</a>
-                                                                        </button>
-                                                                    </form>  
-                                                                    
-                                                            </div>
+                                                                    </div>
+                                                            
+
+
                                             
                                                      </div>
                                                 </div>
                                             </div>
                                             
 
-                                                                                                                      
+                                            
+
+                                            </form>  
+                                    </div>                                                                       
                                     </div>
                                 </div>  
                             </div>
@@ -191,9 +243,16 @@
  </div>
  </div>
 
-
-
-
+ <script>
+    function changeButtonColor(event) {
+      const uploadButton = document.getElementById('uploadButton');
+      if (event.target.files.length > 0) {
+        uploadButton.style.backgroundColor = 'green'; 
+      } else {
+        uploadButton.style.backgroundColor = 'red'; 
+      }
+    }
+  </script>
 
 
 </x-app-layout>

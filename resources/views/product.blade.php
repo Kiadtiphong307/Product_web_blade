@@ -58,7 +58,7 @@
                                                 {{ $product->id }}
                                             </td>
                                             <td name="image" class="px-6 py-4">
-                                                <img src="{{ asset('storage/images/'.$product->image) }}" class="w-20 h-20 object-cover rounded-lg">
+                                                <img src="{{ asset('storage/'.$product->image) }}" class="w-20 h-20 object-cover rounded-lg">
                                             </td>   
                                             <td class="px-6 py-4">
                                                 {{ $product->product_name }}

@@ -51,17 +51,10 @@ Route::middleware([
     Route::put('updatecart', [ProductController::class, 'updatecart'])->name('updatecart');
 
 
-    //จ่ายเงิน
-    Route::get('/payment',[OrderController::class,'payment'])->name('payment');
-    Route::post('/payment',[OrderController::class,'create'])->name('insertorder');
 
-   
-
-
-
-    //ประวัติการสั่งซื้อ database
+  //จ่ายเงิน และ ประวัติการสั่งซื้อ database
     Route::get('/order',[OrderController::class,'index'])->name('order');
-    // Route::post('/insertorder',[OrderController::class,'create'])->name('insertorder');
+    Route::post('/insertorder',[OrderController::class,'create'])->name('insertorder');
 
 
     

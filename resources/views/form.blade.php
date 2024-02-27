@@ -18,7 +18,7 @@
 
 
                     <div class="mt-5 text-gray-500 text-sm leading-relaxed" >
-                        <form class="space-y-4" method="POST" action="/Admin/store">
+                        <form class="space-y-4" method="POST" action="/Admin/store" enctype="multipart/form-data">
                             @csrf 
                                 <div>
                                     <label for="product_name" class="block text-sm font-medium text-gray-700">ชื่อสินค้า</label>

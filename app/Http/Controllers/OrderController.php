@@ -14,7 +14,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return view('order');      
+        $orders = Order::all();
+        return view('order', ['orders' => $orders]);
     }
 
     /**
@@ -27,13 +28,16 @@ class OrderController extends Controller
         $request->validate([
             'name' => 'required',
             'address' => 'required',
-            'phone' => 'required'
+            'phone' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ],
         
         [
             'name.required' => '**กรุณากรอกชื่อ-นามสกุล',
             'address.required' => '**กรุณากรอกที่อยู่',
-            'phone.required' => '**กรุณาเบอร์โทรศัพท์'
+            'phone.required' => '**กรุณาเบอร์โทรศัพท์',
+            'image.required' => '**กรุณาอัปโหลดไฟล์ภาพหลักฐานกาารโอน',
+            
 
         ],
     
@@ -43,7 +47,15 @@ class OrderController extends Controller
         $latestProduct = Order::orderBy('id', 'desc')->first();
         $id = $latestProduct ? $latestProduct->id + 1 : 1;
 
-        $order_id = Str::upper(Str::random(1)) . rand(1000, 9999);
+        $order_id = strtoupper(chr(rand(65, 90))) . rand(1000, 9999);
+
+        $imageFile = $request->file('image');
+
+        $imageName = $imageFile->getClientOriginalName();
+
+        $imagePath = $imageFile->storeAs('payment', $imageName, 'public');
+
+
         
 
         Order::insert([
@@ -52,22 +64,17 @@ class OrderController extends Controller
             'name' => $request->name,
             'address' => $request->address,
             'phone' => $request->phone,
+            'image' => $imagePath,
             'created_at' => now()
         ]);
 
 
-        return redirect()->route('payment');
+        return redirect()->route('order');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function payment()
-    {
-
-        return view('payment');
-    }
-
 
 
 }
