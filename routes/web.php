@@ -20,10 +20,6 @@ use App\Http\Controllers\OrderController;
 */
 
 
-
-
-
-
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -35,9 +31,7 @@ Route::middleware([
      })->name('home');
     
 
-
-
-    
+    //แสดงรายการสินค้า
     Route::get('/show',[ProductController::class,'show'])->name('show');
 
 
@@ -52,10 +46,13 @@ Route::middleware([
 
 
 
-  //จ่ายเงิน และ ประวัติการสั่งซื้อ database
+    //จ่ายเงิน และ ประวัติการสั่งซื้อ database
     Route::get('/order',[OrderController::class,'index'])->name('order');
     Route::post('/insertorder',[OrderController::class,'create'])->name('insertorder');
 
+    //จัดการผู้ใช้
+    Route::get('/user',[OrderController::class,'user'])->name('user');
+    //ลบผู้ใช้
 
     
 

@@ -6,6 +6,8 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Str;
+use App\Models\User;
+
 
 class OrderController extends Controller
 {
@@ -74,4 +76,19 @@ class OrderController extends Controller
 
         return redirect()->route('order');
     }
+
+    public function user()
+    {
+        $Users = User::all(); 
+        return view('user', ['Users' => $Users]); 
+
+
+    }
+
+    public function deleteuser()
+    {
+        $User = User::all();
+        return redirect()->route('user');
+    }
+    
 }

@@ -152,6 +152,9 @@
                                 {{ __('สินค้า') }}
                             </div>
 
+                            <x-dropdown-link href="{{ route('user') }}">
+                                {{ __('จัดการบัญชี') }}
+                            </x-dropdown-link>
                             
                             <x-dropdown-link href="{{ route('product') }}">
                                 {{ __('แก้ไขสินคา') }}

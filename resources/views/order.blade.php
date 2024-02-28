@@ -1,7 +1,5 @@
 <x-app-layout>
 
-
-    @if (count($orders) > 0)
         <div class="py-12">
             @section('title', 'ประวัติการสั่งซื้อ')
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -94,13 +92,4 @@
                 </div>
             </div>
         </div>
-    @else
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <div class="text-2xl p-6 m-6">ไม่มีประวัติการสั่งซื้อ</div>
-                </div>
-            </div>
-        </div>
-    @endif
 </x-app-layout>
