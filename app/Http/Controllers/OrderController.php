@@ -85,10 +85,5 @@ class OrderController extends Controller
 
     }
 
-    public function deleteuser()
-    {
-        $User = User::all();
-        return redirect()->route('user');
-    }
     
 }
