@@ -91,10 +91,10 @@
                                                             </td>
 
                                                             <td class="px-6 py-4 ">
-                                                                <form id="delete-form-{{ $user->id }}" action="{{ route('deleteuser', $user->id) }}" method="POST" style="display: inline;">
+                                                                <form id="delete-form-{{ $id }}" action="{{ route('deletecart', $id) }}" method="POST" style="display: inline;">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline btn-sm delete-user" onclick="return confirm('ต้องการลบผู้ใช้ {{ $user->name }} หรือไม่ ?')">ลบ</button>
+                                                                    <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:underline btn-sm delete-product" onclick="return confirm('ต้องการลบ {{ $details['product_name'] }} หรือไม่ ? ')">ลบ</button>
                                                                 </form>                                                                     
                                                             </td>
                                                             
