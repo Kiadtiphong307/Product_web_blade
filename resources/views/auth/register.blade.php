@@ -1,7 +1,6 @@
 <x-guest-layout>
     <x-authentication-card>
 
-
         <x-validation-errors class="mb-4" />
 <div class="flex justify-items-center">
     <div class="w-full mr-10 justify-center">
