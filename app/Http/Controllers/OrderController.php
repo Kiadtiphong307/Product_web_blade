@@ -21,60 +21,57 @@ class OrderController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request )
+    public function create(Request $request)
     {   
-
-
         $request->validate([
             'name' => 'required',
             'address' => 'required',
             'phone' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ],
-        
-        [
+        ],[
             'name.required' => '**กรุณากรอกชื่อ-นามสกุล',
             'address.required' => '**กรุณากรอกที่อยู่',
             'phone.required' => '**กรุณาเบอร์โทรศัพท์',
             'image.required' => '**กรุณาอัปโหลดไฟล์ภาพหลักฐานกาารโอน',
-            
+        ]);
 
-        ],
-    
-        );
-
-
-        $latestProduct = Order::orderBy('id', 'desc')->first();
-        $id = $latestProduct ? $latestProduct->id + 1 : 1;
+        $latestOrder = Order::orderBy('id', 'desc')->first();
+        $id = $latestOrder ? $latestOrder->id + 1 : 1;
 
         $order_id = strtoupper(chr(rand(65, 90))) . rand(1000, 9999);
 
         $imageFile = $request->file('image');
-
         $imageName = $imageFile->getClientOriginalName();
-
         $imagePath = $imageFile->storeAs('payment', $imageName, 'public');
 
+        $productDetails = [];
+        foreach (session('cart') as $id => $details) {
+            $productDetails[] = [
+                'product_id' => $details['id'],
+                'product_name' => $details['product_name'],
+                'price' => $details['price'],
+                'stock' => $details['stock'],
+                'total' => $details['stock'] * $details['price'],
+            ];
+        }
 
-        
-
-        Order::insert([
-            'id' => $id,
-            'order_id' => $order_id,          
-            'name' => $request->name,
-            'address' => $request->address,
-            'phone' => $request->phone,
-            'image' => $imagePath,
-            'created_at' => now()
-        ]);
-
+        foreach ($productDetails as $productDetail) {
+            Order::create([
+                'id' => $id,
+                'order_id' => $order_id,
+                'name' => $request->name,
+                'address' => $request->address,
+                'phone' => $request->phone,
+                'image' => $imagePath,
+                'product_id' => $productDetail['product_id'],
+                'product_name' => $productDetail['product_name'],
+                'price' => $productDetail['price'],
+                'stock' => $productDetail['stock'],
+                'total' => $productDetail['total'],
+                'created_at' => now()
+            ]);
+        }
 
         return redirect()->route('order');
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-
-
 }

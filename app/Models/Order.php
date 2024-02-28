@@ -12,11 +12,15 @@ class Order extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'id',
         'order_id',
         'name',
         'address',
         'phone',
-        'image'
+        'image',
+        'product_id',
+        'product_name',
+        'price',
+        'stock',
+        'total',
     ];
 }

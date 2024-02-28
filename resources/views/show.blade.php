@@ -80,7 +80,7 @@
                                                 @endif
                                             </td>
 
-                                            <td class="px-6 py-4 text-right">
+                                            <td class="px-6 py-4 ">
                                                 <button type="submit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                                                     <a href="{{ route('addcart', $product->id) }}"
                                                     onclick="return confirm('ต้องเพิ่ม {{ $product->product_name }} ลงตะกร้าหรือไม่ ? ')">เพิ่มลงตะกร้า</a>

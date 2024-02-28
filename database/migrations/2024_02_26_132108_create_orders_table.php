@@ -18,6 +18,13 @@ return new class extends Migration
             $table->string('address');
             $table->string('phone');
             $table->string('image');
+            
+            $table->string('product_id');
+            $table->string('product_name');
+            $table->integer('price');
+            $table->integer('stock');
+            $table->integer('total');
+
             $table->timestamps();
         });
     }
