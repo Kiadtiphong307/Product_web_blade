@@ -1,0 +1,76 @@
+<x-app-layout>
+    <script>
+        function confirmproduct() {
+            var confirmed = confirm('ต้องการแก้ไขสินค้า หรือไม่ ? ');
+            if (confirmed) {
+                alert("แก้ไขสำเร็จ");
+            }
+            return confirmed;
+        }
+    </script>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-10">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                
+                <div class="bg-gray-200 bg-opacity-25 grid grid-cols- md:grid-cols-1 gap-6 lg:gap-78p-6 lg:p-10 "> 
+                    <p class="text-2xl ...">แก้ไขสินค้า</p>
+
+                    <div class="mt-5 text-gray-500 text-sm leading-relaxed" >
+                        <form class="space-y-4" method="POST" action="{{ route('update', $product->id) }}">
+                            @csrf 
+                            <div>
+                                <label for="product_name" class="block text-sm font-medium text-gray-700">ชื่อสินค้า</label>
+                                <input name="product_name" type="text" id="product_name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" value="{{ $product->product_name }}">
+                            </div>
+                            
+                            @error('product_name')
+                                <div class="alert alert-danger py-2 text-red-600">{{ $message }}</div>
+                            @enderror
+    
+                            <div>
+                                <label for="description" class="block text-sm font-medium text-gray-700">รายละเอียด</label>
+                                <textarea name="description" id="description" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">{{ $product->description }}</textarea>
+                                
+                                @error('description')
+                                    <div class="alert alert-danger py-2 text-red-600">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div>
+                                <label for="price" class="block text-sm font-medium text-gray-700">ราคา</label>
+                                <input  name="price" type="number" id="price" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" value="{{ $product->price }}">
+                                
+                                @error('price')
+                                    <div class="alert alert-danger py-2 text-red-600">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div>
+                                <label for="stock" class="block text-sm font-medium text-gray-700">จำนวน</label>
+                                <input name="stock" type="number" id="stock" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" value="{{ $product->stock }}">
+                            
+                                @error('quantity')
+                                    <div class="alert alert-danger py-2 text-red-600">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            
+                            <div >
+                                <label for="image" class="block text-sm font-medium text-gray-700 py-2">อัปโหลด</label>
+                                    <input name="image" type="file" id="image" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                <p class="py-2 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">ไฟล์ JPEG, PNG, JPG หรือ WEBP เท่านั้น</p>
+                                @error('image')
+                                <div class="alert alert-danger py-2 text-red-600">{{ $message }}</div>
+                                 @enderror
+                            </div>
+
+                            
+                            <div class="py-5">
+                                <input type="submit"  value="บันทึก" onclick="return confirmproduct()" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 p-3"></input>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</x-app-layout>
