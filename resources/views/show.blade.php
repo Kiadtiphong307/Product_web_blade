@@ -4,7 +4,7 @@
             {{ __('Product') }}
         </h2>
     </x-slot>
-    asdasdasdasdasdasdasdasdasdasdasdasdasasdasd
+
     @section('title', 'รายการสินค้า')
     @if (count($products) > 0)
     <div class="py-12">
