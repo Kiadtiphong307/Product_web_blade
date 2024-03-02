@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
-use App\Models\Product;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
 
@@ -15,7 +14,8 @@ class OrderController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
+    {   
+        
         $orders = Order::all();
         return view('order', ['orders' => $orders]);
     }
@@ -70,11 +70,13 @@ class OrderController extends Controller
                 'price' => $productDetail['price'],
                 'stock' => $productDetail['stock'],
                 'total' => $productDetail['total'],
+
+                'user_id' => Auth::id(),
                 'created_at' => now()
             ]);
         }
 
-        return redirect()->route('order');
+        return redirect()->route('user_orders');
     }
 
     public function user()
@@ -84,6 +86,17 @@ class OrderController extends Controller
 
 
     }
+
+    public function userOrders()
+    {
+        $userId = Auth::id();
+        $userOrders = Order::where('user_id', $userId)->get();
+        return view('user_orders', ['userOrders' => $userOrders]);
+    }
+
+    
+
+
 
     
 }

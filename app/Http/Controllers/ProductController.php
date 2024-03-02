@@ -98,7 +98,7 @@ class ProductController extends Controller
     {
         $product = Product::where('id', $id)->first();
     
-        return view('edit', compact('product'));
+        return view('show', compact('product'));
     }
 
     /**

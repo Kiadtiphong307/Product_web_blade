@@ -1,13 +1,16 @@
 <x-app-layout>
 
-        <div class="py-12">
-            @section('title', 'ประวัติการสั่งซื้อ')
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-
+    <div class="py-12">
+        @section('title', 'ประวัติการสั่งซื้อ')
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                @if ($userOrders->isEmpty())
+                    <div class="text-2xl p-6 m-6">ไม่มีประวัติการสั่งซื้อ</div>
+                @else
                     <div class="text-2xl p-6 m-6">ประวัติการสั่งซื้อ</div>
 
                     <div class="p-6 m-6">
+
                         <table class="min-w-full divide-y divide-gray-200 text-center">
                             <thead class="bg-gray-100">
                                 <tr>
@@ -18,10 +21,6 @@
                                     <th scope="col"
                                         class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         รหัสการสั่งซื้อ
-                                    </th>
-                                    <th scope="col"
-                                    class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        รหัสผู้ใช้งาน
                                     </th>
                                     <th scope="col"
                                         class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -51,16 +50,13 @@
                             </thead>
 
                             <tbody class="bg-white divide-y divide-gray-200">
-                                @foreach ($orders as $order)
+                                @foreach ($userOrders as $order)
                                     <tr>
                                         <td class="px-2 py-4 whitespace-nowrap text-xs font-medium text-gray-500">
                                             {{ $order->id }}
                                         </td>
                                         <td class="px-2 py-4 whitespace-nowrap text-xs font-medium text-gray-500">
                                             {{ $order->order_id }}
-                                        </td>
-                                        <td class="px-2 py-4 whitespace-nowrap text-xs font-medium text-gray-500">
-                                            {{ $order->user_id }}
                                         </td>
                                         <td class="px-2 py-4 whitespace-nowrap text-xs font-medium text-gray-500">
                                             {{ $order->name }}
@@ -95,8 +91,9 @@
                                 @endforeach
                             </tbody>
                         </table>
-                    </div>
-                </div>
+                @endif
             </div>
         </div>
+    </div>
+    </div>
 </x-app-layout>

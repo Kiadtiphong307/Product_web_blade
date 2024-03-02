@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('phone');
             $table->string('image');
-            
+            $table->foreignId('user_id')->constrained();
             $table->string('product_id');
             $table->string('product_name');
             $table->integer('price');

@@ -49,7 +49,15 @@ Route::middleware([
 
 
     //จ่ายเงิน และ ประวัติการสั่งซื้อ database
+
     Route::get('/order',[OrderController::class,'index'])->name('order');
+
+    Route::get('/user_orders', [OrderController::class, 'userOrders'])->name('user_orders');
+
+
+
+
+
     Route::post('/insertorder',[OrderController::class,'create'])->name('insertorder');
 
 
@@ -57,7 +65,7 @@ Route::middleware([
 
     
 
-
+    //ระบบ Admin
     Route::prefix('Admin')->middleware('admin')->group(function () {
         //แสดงรายการสินค้าทั้งหมด
         Route::get('/product',[ProductController::class,'index'])->name('product');
@@ -75,6 +83,8 @@ Route::middleware([
         //แสดงฟอร์มสำหรับแก้ไขสินค้า และแก้ไขสินค้า
         Route::get('/edit/{id}',[ProductController::class,'edit'])->name('edit');
         Route::post('/update/{id}',[ProductController::class,'update'])->name('update');
+
+        //แสดงรายการสั่งซื้อทั้งหมด
     });
     
 

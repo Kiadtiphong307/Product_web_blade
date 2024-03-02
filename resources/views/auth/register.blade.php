@@ -5,30 +5,34 @@
     <div class="w-full mr-10 justify-center">
         <form method="POST" action="{{ route('register') }}">
             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" style="font-weight: bold;" href="{{ route('login') }}">
-                {{ __('Back to login') }}
+                {{ __('ย้อนกลับ') }}
             </a>
-            <h4 class="text-center">Register Account</h4>
-            <h6 class="text-center">May you find only happiness :)</h6>
+            
+            <div class="py-2">
+                <h2 class="text-center">สมัครบัญชีผู้ใช้งาน</h2>
+                <h3 class="text-center">ขอให้คุณพบแต่ความสุข</h3>
+            </div>
+
             @csrf
 
             <div>
-                <x-label for="name" value="{{ __('Username') }}" />
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" placeholder="Enter your username" />
+                <x-label for="name" value="{{ __('ชื่อผู้ใช้') }}" />
+                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" placeholder="กรอกชื่อผู้ใช้งานของคุณ" />
             </div>
 
             <div class="mt-4">
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" placeholder="Enter your email"/>
+                <x-label for="email" value="{{ __('อีเมล') }}" />
+                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" placeholder="กรอกอีเมลของคุณ"/>
             </div>
 
             <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" placeholder="Enter your password" />
+                <x-label for="password" value="{{ __('รหัสผ่าน') }}" />
+                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" placeholder="กรอกรหัสผ่านของคุณ" />
             </div>
 
             <div class="mt-4">
-                <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" placeholder="Confirm your password" />
+                <x-label for="password_confirmation" value="{{ __('ยืนยันรหัสผ่าน') }}" />
+                <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" placeholder="กรอกรหัสผ่านของคุณอีกครั้ง" />
             </div>
 
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
@@ -50,7 +54,7 @@
 
             <div class="justify-end mt-4 flex flex-col">
                 <x-button class="ms-4">
-                    {{ __('Create an account') }}
+                    {{ __('สร้างบัญชี') }}
                 </x-button>
             </div>
         </form>
