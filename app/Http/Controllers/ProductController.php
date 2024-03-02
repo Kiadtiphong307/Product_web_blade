@@ -17,7 +17,7 @@ class ProductController extends Controller
 
     public function show()
     {
-        $products = Product::paginate(3);
+        $products = Product::paginate(6);
         return view('show', compact('products'));
     }
 

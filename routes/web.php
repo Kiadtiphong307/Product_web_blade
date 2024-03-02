@@ -20,11 +20,15 @@ use App\Http\Controllers\OrderController;
 */
 
 
+
+
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
+
 
     Route::get('/', function () {
         return view('home');
@@ -34,11 +38,9 @@ Route::middleware([
     //แสดงรายการสินค้า
     Route::get('/show',[ProductController::class,'show'])->name('show');
 
-
     //รถเข็น
     Route::get('/cart',[ProductController::class,'cart'])->name('cart');
     Route::get('/add/{id}', [ProductController::class,'addcart'])->name('addcart');
-
 
     Route::delete('/deletecart/{id}',[ProductController::class,'deletecart'])->name('deletecart');
 
@@ -50,29 +52,30 @@ Route::middleware([
     Route::get('/order',[OrderController::class,'index'])->name('order');
     Route::post('/insertorder',[OrderController::class,'create'])->name('insertorder');
 
-    //จัดการผู้ใช้
-    Route::get('/user',[OrderController::class,'user'])->name('user');
-    //ลบผู้ใช้
+
+
 
     
 
 
-    Route::prefix('Admin')->group(function () {
-
-    //แสดงรายการสินค้าทั้งหมด
-    Route::get('/product',[ProductController::class,'index'])->name('product');
-
-    //แสดงฟอร์มสำหรับเพิ่มสินค้า และเพิ่มสินค้า
-    Route::get('/create',[ProductController::class,'create'])->name('create');
-    Route::post('/store',[ProductController::class,'store'])->name('store');
-
-    //ลบสินค้า
-    Route::get('/destroy/{id}',[ProductController::class,'destroy'])->name('delete');
+    Route::prefix('Admin')->middleware('admin')->group(function () {
+        //แสดงรายการสินค้าทั้งหมด
+        Route::get('/product',[ProductController::class,'index'])->name('product');
+        
+        //จัดการผู้ใช้
+        Route::get('/user',[OrderController::class,'user'])->name('user');
     
-    //แสดงฟอร์มสำหรับแก้ไขสินค้า และแก้ไขสินค้า
-    Route::get('/edit/{id}',[ProductController::class,'edit'])->name('edit');
-    Route::post('/update/{id}',[ProductController::class,'update'])->name('update');
-
+        //แสดงฟอร์มสำหรับเพิ่มสินค้า และเพิ่มสินค้า
+        Route::get('/create',[ProductController::class,'create'])->name('create');
+        Route::post('/store',[ProductController::class,'store'])->name('store');
+    
+        //ลบสินค้า
+        Route::get('/destroy/{id}',[ProductController::class,'destroy'])->name('delete');
+        
+        //แสดงฟอร์มสำหรับแก้ไขสินค้า และแก้ไขสินค้า
+        Route::get('/edit/{id}',[ProductController::class,'edit'])->name('edit');
+        Route::post('/update/{id}',[ProductController::class,'update'])->name('update');
     });
+    
 
 });

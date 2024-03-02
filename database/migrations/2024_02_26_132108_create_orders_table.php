@@ -24,8 +24,8 @@ return new class extends Migration
             $table->integer('price');
             $table->integer('stock');
             $table->integer('total');
-
             $table->timestamps();
+            
         });
     }
 

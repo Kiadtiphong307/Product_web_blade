@@ -148,21 +148,20 @@
                                 {{ __('ผู้ใช้') }}
                             </x-dropdown-link>
 
+                            @if(Auth::user()->role === 'admin')
                             <div class="block px-4 py-2 text-xs text-gray-400">
                                 {{ __('สินค้า') }}
                             </div>
-
                             <x-dropdown-link href="{{ route('user') }}">
                                 {{ __('จัดการบัญชี') }}
                             </x-dropdown-link>
-                            
                             <x-dropdown-link href="{{ route('product') }}">
                                 {{ __('แก้ไขสินคา') }}
                             </x-dropdown-link>
-
                             <x-dropdown-link href="{{ route('create') }}">
                                 {{ __('เพิ่มสินค้า') }}
                             </x-dropdown-link>
+                        @endif
 
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
