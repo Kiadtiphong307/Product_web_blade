@@ -17,7 +17,7 @@
                     </x-nav-link>
 
                     <x-nav-link href="{{ route('show') }}" :active="request()->routeIs('show')">
-                        {{ __('แสดงรายการสินค้า') }}
+                        {{ __('รายการสินค้า') }}
                     </x-nav-link>
 
                 </div>
@@ -28,9 +28,6 @@
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <div class="hidden space-x-10 sm:-my-px sm:ms-10 px-50 sm:flex">
 
-
-
-                    @if (Auth::user()->role === 'user')
                         <span class="inline-flex rounded-md">
                             <button type="button"
                                 class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
@@ -56,7 +53,7 @@
                         </a>
                     </button>
                 </span>
-            @endif
+
 
 
 
@@ -161,22 +158,24 @@
                             </x-dropdown-link>
 
                             
-
                             @if (Auth::user()->role === 'admin')
                                 <div class="block px-4 py-2 text-xs text-gray-400">
-                                    {{ __('ระบบจัดการ') }}
+                                    {{ __('จัดการระบบสินค้า') }}
                                 </div>
                                 <x-dropdown-link href="{{ route('order') }}">
                                     {{ __('รายการสั่งซื้อ') }}
                                 </x-dropdown-link>
-                                <x-dropdown-link href="{{ route('user') }}">
-                                    {{ __('จัดการบัญชี') }}
-                                </x-dropdown-link>
                                 <x-dropdown-link href="{{ route('product') }}">
-                                    {{ __('แก้ไขสินคา') }}
+                                    {{ __('แก้ไขสินค้า') }}
                                 </x-dropdown-link>
                                 <x-dropdown-link href="{{ route('create') }}">
                                     {{ __('เพิ่มสินค้า') }}
+                                </x-dropdown-link>
+                                <div class="block px-4 py-2 text-xs text-gray-400">
+                                    {{ __('จัดการผู้ใช้งาน') }}
+                                </div>
+                                <x-dropdown-link href="{{ route('user') }}">
+                                    {{ __('จัดการบัญชี') }}
                                 </x-dropdown-link>
                             @endif
 

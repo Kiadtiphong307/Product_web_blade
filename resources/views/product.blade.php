@@ -27,6 +27,12 @@
                                                 รายละเอียด
                                             </th>
                                             <th scope="col" class="px-6 py-3">
+                                                ภาค
+                                            </th>
+                                            <th scope="col" class="px-6 py-3">
+                                                หมวดหมู่
+                                            </th>
+                                            <th scope="col" class="px-6 py-3">
                                                 ราคา
                                             </th>
                                             <th scope="col" class="px-6 py-3">
@@ -62,6 +68,12 @@
                                                 {{ $product->description }}
                                             </td>
                                             <td class="px-6 py-4">
+                                                {{ $product->region }}
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                {{ $product->category }}
+                                            </td>
+                                            <td class="px-6 py-4">
                                                 {{ $product->price }}
                                             </td>
                                             <td class="px-6 py-4">
@@ -91,10 +103,7 @@
                                     </tbody>
                                 </table>
                             </div>
-
-                            <div class="py-2">
-                                {{ $products->links() }}
-                            </div>     
+  
             </div>
         </div>
     </div>

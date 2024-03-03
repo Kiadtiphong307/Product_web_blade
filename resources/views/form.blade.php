@@ -6,6 +6,7 @@
             var confirmed = confirm('ต้องการเพิ่มสินค้า หรือไม่ ? ');
             if (confirmed) {
                 alert("เพิ่มสินค้าเสร็จสิ้น");
+                window.location.href = "/Admin/product";
             }
             return confirmed;
         }
@@ -39,6 +40,25 @@
                                     <div class="alert alert-danger py-2 text-red-600">{{ $message }}</div>
                                      @enderror
                                 </div>
+
+                                <div>
+                                    <label for="region" class="block text-sm font-medium text-gray-700">ภาค</label>
+                                    <input  name="region" type="text" id="region" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                    
+                                    @error('region')
+                                    <div class="alert alert-danger py-2 text-red-600">{{ $message }}</div>
+                                     @enderror
+                                </div>
+
+                                <div>
+                                    <label for="category" class="block text-sm font-medium text-gray-700">หมวดหมู่</label>
+                                    <input  name="category" type="text" id="category" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                    
+                                    @error('category')
+                                    <div class="alert alert-danger py-2 text-red-600">{{ $message }}</div>
+                                     @enderror
+                                </div>
+
                                 <div>
                                     <label for="price" class="block text-sm font-medium text-gray-700">ราคา</label>
                                     <input  name="price" type="number" id="price" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
@@ -47,11 +67,12 @@
                                     <div class="alert alert-danger py-2 text-red-600">{{ $message }}</div>
                                      @enderror
                                 </div>
+
                                 <div>
                                     <label for="stock" class="block text-sm font-medium text-gray-700">จำนวน</label>
                                     <input name="stock" type="number" id="stock" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                 
-                                    @error('quantity')
+                                    @error('stock')
                                     <div class="alert alert-danger py-2 text-red-600">{{ $message }}</div>
                                      @enderror
                                 </div>

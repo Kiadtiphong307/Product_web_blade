@@ -94,6 +94,11 @@
                 @endif
             </div>
         </div>
+
+        <div class="py-2">
+            {{ $userOrders->links() }}
+        </div>
+
     </div>
     </div>
 </x-app-layout>

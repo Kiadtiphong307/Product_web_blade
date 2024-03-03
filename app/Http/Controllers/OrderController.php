@@ -6,6 +6,7 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Product;
 
 
 class OrderController extends Controller
@@ -14,38 +15,40 @@ class OrderController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {   
-        
-        $orders = Order::all();
+    {
+
+        $orders = Order::paginate(3);
         return view('order', ['orders' => $orders]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
+
     public function create(Request $request)
-    {   
+    {
+        // Validate request data
         $request->validate([
             'name' => 'required',
             'address' => 'required',
             'phone' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ],[
+        ], [
             'name.required' => '**กรุณากรอกชื่อ-นามสกุล',
             'address.required' => '**กรุณากรอกที่อยู่',
             'phone.required' => '**กรุณาเบอร์โทรศัพท์',
-            'image.required' => '**กรุณาอัปโหลดไฟล์ภาพหลักฐานกาารโอน',
+            'image.required' => '**กรุณาอัปโหลดไฟล์ภาพหลักฐานการโอน',
         ]);
 
+        // Generate order ID
         $latestOrder = Order::orderBy('id', 'desc')->first();
         $id = $latestOrder ? $latestOrder->id + 1 : 1;
-
         $order_id = strtoupper(chr(rand(65, 90))) . rand(1000, 9999);
 
+        // Upload image
         $imageFile = $request->file('image');
         $imageName = $imageFile->getClientOriginalName();
         $imagePath = $imageFile->storeAs('payment', $imageName, 'public');
 
+        // Create order details
         $productDetails = [];
         foreach (session('cart') as $id => $details) {
             $productDetails[] = [
@@ -57,6 +60,7 @@ class OrderController extends Controller
             ];
         }
 
+        // Create order and related order details
         foreach ($productDetails as $productDetail) {
             Order::create([
                 'id' => $id,
@@ -70,33 +74,17 @@ class OrderController extends Controller
                 'price' => $productDetail['price'],
                 'stock' => $productDetail['stock'],
                 'total' => $productDetail['total'],
-
                 'user_id' => Auth::id(),
                 'created_at' => now()
             ]);
+
+            $product = Product::findOrFail($productDetail['product_id']);
+            $product->update(['stock' => $product->stock - $productDetail['stock']]);
         }
+
+
+        $request->session()->forget('cart');
 
         return redirect()->route('user_orders');
     }
-
-    public function user()
-    {
-        $Users = User::all(); 
-        return view('user', ['Users' => $Users]); 
-
-
-    }
-
-    public function userOrders()
-    {
-        $userId = Auth::id();
-        $userOrders = Order::where('user_id', $userId)->get();
-        return view('user_orders', ['userOrders' => $userOrders]);
-    }
-
-    
-
-
-
-    
 }

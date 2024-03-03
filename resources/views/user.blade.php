@@ -38,11 +38,14 @@
                                         class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         สิทธิ์
                                     </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        <span class="sr-only">Delete</span>
+                                    </th>
 
 
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
+                            <tbody class="min-w-full divide-y divide-gray-200 text-center">
                                 @foreach ($Users as $User)
                                     <tr>
                                         <td class="px-2 py-4 whitespace-nowrap text-xs font-medium text-gray-500">
@@ -73,12 +76,26 @@
                                                     User
                                                 </span>
                                             @endif
+                                        </td>
+                                        <td class="px-2 py-4 whitespace-nowrap text-xs font-medium text-gray-500">
+                                            <form action="{{ route('deleteUser', $User->id) }}" method="POST" onsubmit="return confirm('คุณแน่ใจหรือไม่ที่จะลบผู้ใช้งานนี้?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                                    ลบผู้ใช้งาน
+                                                </button>
+                                            </form>
+                                        </td>
+                                        
                                         
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
+                </div>
+                <div class="py-2">
+                    {{ $Users->links() }}
                 </div>
             </div>
         </div>

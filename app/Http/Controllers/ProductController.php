@@ -50,6 +50,8 @@ class ProductController extends Controller
                 'price' => 'required',
                 'stock' => 'required',
                 'image' => 'required',
+                'category' => 'required',
+                'region' => 'required',
             ],
 
             [
@@ -57,7 +59,9 @@ class ProductController extends Controller
                 'description.required' => '**กรุณากรอกรายละเอียดสินค้า',
                 'price.required' => '**กรุณากรอกราคาสินค้า',
                 'stock.required' => '**กรุณากรอกจำนวนสินค้า',
-                'image.required' => '**กรุณาอัปโหลดรูปสินค้า'
+                'image.required' => '**กรุณาอัปโหลดรูปสินค้า',
+                'category.required' => '**กรุณากรอกประเภทสินค้า',
+                'region.required' => '**กรุณากรอกภูมิภาคสินค้า'
 
             ],
 
@@ -82,6 +86,8 @@ class ProductController extends Controller
             'price' => $request->price,
             'stock' => $request->stock,
             'image' => $imagePath,
+            'category' => $request->category,
+            'region' => $request->region,
             'created_at' => now()
         ]);
 
@@ -112,12 +118,18 @@ class ProductController extends Controller
             'price' => 'required',
             'stock' => 'required',
             'image' => 'required',
+            'category' => 'required',
+            'region' => 'required',
+
         ],
         [
             'product_name.required' => '**กรุณากรอกชื่อสินค้า',
             'description.required' => '**กรุณากรอกรายละเอียดสินค้า',
             'price.required' => '**กรุณากรอกราคาสินค้า',
             'stock.required' => '**กรุณากรอกจำนวนสินค้า',
+            'image.required' => '**กรุณาอัปโหลดรูปสินค้า',  
+            'category.required' => '**กรุณากรอกประเภทสินค้า',
+            'region.required' => '**กรุณากรอกภูมิภาคสินค้า'
             
         ]);
 
@@ -129,6 +141,8 @@ class ProductController extends Controller
             'price' => $request->price,
             'stock' => $request->stock,
             'image' => $request->image,
+            'category' => $request->category,
+            'region' => $request->region,
             'updated_at' => now()
         ]);
     
@@ -148,9 +162,10 @@ class ProductController extends Controller
     public function destroy($id)
     {
         DB::table('products')->where('id', $id)->delete();
-
+    
         return redirect()->route('product');
     }
+    
 
 
     //CartController 
@@ -168,7 +183,7 @@ class ProductController extends Controller
                 'image' => $product->image,
                 'product_name' => $product->product_name,
                 'stock' => 1,
-                'description' => $product->description,
+                'category' => $product->category,
                 'price' => $product->price,
             ];
         }

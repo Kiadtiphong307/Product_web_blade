@@ -7,20 +7,12 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="text-2xl p-6 m-6 text-center" >
-                        Products Interesting
+                        รายการสินค้าแนะนำ🛒
                         <hr style="width: 20%; margin: auto; border: 1.5px solid #000; ">
                     </div>
+                    <div class=" p-6 m-6 " >  
 
-
-                    <div class=" p-6 m-6">  
-                                    <div class="col-box " >
-                                        <div class="header underline mt-5" style="font-size:1.3rem; font-weight:bold">
-                                        Northern Products
-                                        </div>
-
-                                        <!-- สินค้าภาคเหนือ -->
-
-                                        <div class="north">          
+                                        <div class="card">          
                                         @foreach($products as $product)
                                         @csrf
                                         <div class="box rounded-lg ">
@@ -28,35 +20,50 @@
                                                 <img src="{{ asset('storage/'.$product->image) }} ">
                                             </div>
 
-                                            <div class="text-left">
-                                                <div name="product_id">
+                                            <div class="text-center">
+                                                <div class="px-2 py-1 whitespace-nowrap text-xs font-medium text-gray-500" name="product_id">
                                                 รหัสสินค้า : {{ $product->id }}
                                                 </div>
-                                                <div name="product_name">
+                                                <div class="px-2 py-1 whitespace-nowrap text-xs font-medium text-gray-500" name="product_name">
                                                 ชื่อสินค้า : {{ $product->product_name }}
                                                 </div>
-                                                <div name="description">
-                                                รายละเอียด : {{ $product->description }}
+                                                <div class="px-2 py-1 whitespace-nowrap text-xs font-medium text-gray-500" name="description">
+                                                รายละเอียด : {{ $product->description }} หมวดหมู่ : {{ $product->category }} ภาค : {{ $product->region }}
                                                 </div>
-                                                <div  name="price">
+                                                {{-- <div class="px-2 py-1 whitespace-nowrap text-xs font-medium text-gray-500" name="region">
+                                                    ภาค : {{ $product->region }}
+                                                </div>
+                                                <div class="px-2 py-1 whitespace-nowrap text-xs font-medium text-gray-500" name="category">
+                                                    หมวดหมู่ : {{ $product->category }}
+                                                </div> --}}
+                                                <div  class="px-2 py-1 whitespace-nowrap text-xs font-medium text-gray-500" name="price">
                                                     ฿ {{ $product->price }} บาท
                                                 </div>
-                                                <div name="stock">
+                                                <div class="px-2 py-1 whitespace-nowrap text-xs font-medium text-gray-500" name="stock">
                                                 มีสินค้าทั้งหมด {{ $product->stock }} ชิ้น   
                                                 </div>
                                             </div>
 
+                                            @if($product->stock > 0)
                                             <button type="submit" class="btn-add mb-2 mt-2  rounded-lg">
                                                 <p class="flex">
                                                     <a href="{{ route('addcart', $product->id) }}"
                                                         onclick="return confirm('ต้องเพิ่ม {{ $product->product_name }} ลงตะกร้าหรือไม่ ? ')">เพิ่มลงตะกร้า</a>
-                                                    <svg class="justify-self-end mt-1 mb-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart">
+                                                    <svg class="justify-self-end mt-1 mb-1 rounded-lg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart rounded-lg">
                                                         <circle cx="9" cy="21" r="1"></circle>
                                                         <circle cx="20" cy="21" r="1"></circle>
                                                         <path d="M1 1h4l2.68 13.39a2 2 0 0 0 1.96 1.61h8.72a2 2 0 0 0 1.96-1.61L23 6H6" style="fill:none;stroke-linecap:round;stroke-linejoin:round;"></path>
                                                     </svg>
                                                 </p>
                                             </button>
+                                        @else
+                                            <button type="button" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                                                <p class="flex">
+                                                    <span>สินค้าหมด</span>
+                                                </p>
+                                            </button>
+                                        @endif
+
                                         </div>
                                         @endforeach
                 
@@ -91,16 +98,16 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        max-width: 500px;
+        max-width: 250px;
         max-height: 500px;
         box-shadow: 0 6px 6px rgba(0, 0, 0, 0.3);
     }
     
-    .north {
+    .card {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 20px;
-        padding: 2rem;
+        padding: 4rem;
     
     }
     
