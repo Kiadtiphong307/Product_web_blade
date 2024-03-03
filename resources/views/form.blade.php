@@ -42,21 +42,33 @@
                                 </div>
 
                                 <div>
-                                    <label for="region" class="block text-sm font-medium text-gray-700">ภาค</label>
-                                    <input  name="region" type="text" id="region" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                    
-                                    @error('region')
-                                    <div class="alert alert-danger py-2 text-red-600">{{ $message }}</div>
-                                     @enderror
-                                </div>
-
-                                <div>
                                     <label for="category" class="block text-sm font-medium text-gray-700">หมวดหมู่</label>
-                                    <input  name="category" type="text" id="category" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                    <select name="category" id="category" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                        <option value="เสื้อผ้า">เสื้อผ้า</option>
+                                        <option value="อาหาร">อาหาร</option>
+                                        <option value="เครื่องประดับ">เครื่องประดับ</option>
+                                        <option value="ตกแต่งบ้าน">ตกแต่งบ้าน</option>
+                                    </select>
                                     
                                     @error('category')
-                                    <div class="alert alert-danger py-2 text-red-600">{{ $message }}</div>
-                                     @enderror
+                                        <div class="alert alert-danger py-2 text-red-600">{{ $message }}</div>
+                                    @enderror
+    
+                                </div>
+    
+                                <div>
+                                    <label for="region" class="block text-sm font-medium text-gray-700">ภาค</label>
+                                    <select name="region" id="region" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                        <option value="ภาคเหนือ">ภาคเหนือ</option>
+                                        <option value="ภาคตะวันออกเฉียงเหนือ">ภาคตะวันออกเฉียงเหนือ</option>
+                                        <option value="ภาคกลาง">ภาคกลาง</option>
+                                        <option value="ภาคตะวันออก">ภาคตะวันออก</option>
+                                        <option value="ภาคใต้">ภาคใต้</option>
+                                    </select>
+                                    
+                                    @error('region')
+                                        <div class="alert alert-danger py-2 text-red-600">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <div>

@@ -11,23 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('eastnorths', function (Blueprint $table) {
             $table->id();
-            $table->string('order_id');
-            $table->string('name');
-            $table->string('address');
-            $table->string('phone');
-            $table->string('image');
-
-            $table->foreignId('user_id')->constrained();
-            $table->string('product_id');
+            $table->foreignId('product_id')->constrained();
             $table->string('product_name');
+            $table->text('description');
             $table->integer('price');
             $table->integer('stock');
-            $table->integer('total');
+            $table->string('category');
+            $table->string('region');
+            $table->string('image');
             $table->timestamps();
         });
-
     }
 
     /**
@@ -35,7 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('orders');
-        Schema::dropIfExists('payment');
+        Schema::dropIfExists('eastnorths');
     }
 };

@@ -55,11 +55,18 @@
 
                             <div>
                                 <label for="region" class="block text-sm font-medium text-gray-700">ภาค</label>
-                                <input name="region" type="text" id="region" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" value="{{ $product->brand }}">
+                                <select name="region" id="region" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                    <option value="ภาคเหนือ" {{ $product->region == 'ภาคเหนือ' ? 'selected' : '' }}>ภาคเหนือ</option>
+                                    <option value="ภาคตะวันออกเฉียงเหนือ" {{ $product->region == 'อาหาร' ? 'selected' : '' }}>ภาคตะวันออกเฉียงเหนือ</option>
+                                    <option value="ภาคกลาง" {{ $product->region == 'ภาคกลาง' ? 'selected' : '' }}>ภาคกลาง</option>
+                                    <option value="ภาคตะวันออก" {{ $product->region == 'ภาคตะวันออก' ? 'selected' : '' }}>ภาคตะวันออก</option>
+                                    <option value="ภาคใต้" {{ $product->region == 'ภาคใต้' ? 'selected' : '' }}>ภาคใต้</option>
+                                </select>
                                 
                                 @error('region')
                                     <div class="alert alert-danger py-2 text-red-600">{{ $message }}</div>
                                 @enderror
+                            </div>
 
 
 
