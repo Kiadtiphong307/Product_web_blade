@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 
 
@@ -21,13 +22,12 @@ class ProductController extends Controller
         return view('show', compact('products'));
     }
 
-    
+
     public function index()
     {
 
         $products = Product::paginate(3);
         return view('product', compact('products'));
-
     }
 
     /**
@@ -43,23 +43,24 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'product_name' => 'required',
-            'description' => 'required',
-            'price' => 'required',
-            'stock'=>'required',
-            'image' => 'required',
-        ],
-        
-        [
-            'product_name.required' => '**กรุณากรอกชื่อสินค้า',
-            'description.required' => '**กรุณากรอกรายละเอียดสินค้า',
-            'price.required' => '**กรุณากรอกราคาสินค้า',
-            'stock.required' => '**กรุณากรอกจำนวนสินค้า',
-            'image.required' => '**กรุณาอัปโหลดรูปสินค้า'
+        $request->validate(
+            [
+                'product_name' => 'required',
+                'description' => 'required',
+                'price' => 'required',
+                'stock' => 'required',
+                'image' => 'required',
+            ],
 
-        ],
-    
+            [
+                'product_name.required' => '**กรุณากรอกชื่อสินค้า',
+                'description.required' => '**กรุณากรอกรายละเอียดสินค้า',
+                'price.required' => '**กรุณากรอกราคาสินค้า',
+                'stock.required' => '**กรุณากรอกจำนวนสินค้า',
+                'image.required' => '**กรุณาอัปโหลดรูปสินค้า'
+
+            ],
+
         );
 
 
@@ -84,10 +85,9 @@ class ProductController extends Controller
             'created_at' => now()
         ]);
 
-        
+
+
         return redirect()->route('product');
-
-
     }
 
 
@@ -97,8 +97,8 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::where('id', $id)->first();
-    
-        return view('show', compact('product'));
+
+        return view('edit', compact('product'));
     }
 
     /**
@@ -110,17 +110,18 @@ class ProductController extends Controller
             'product_name' => 'required',
             'description' => 'required',
             'price' => 'required',
-            'stock'=>'required',
+            'stock' => 'required',
+            'image' => 'required',
         ],
-        
         [
             'product_name.required' => '**กรุณากรอกชื่อสินค้า',
             'description.required' => '**กรุณากรอกรายละเอียดสินค้า',
             'price.required' => '**กรุณากรอกราคาสินค้า',
             'stock.required' => '**กรุณากรอกจำนวนสินค้า',
+            
+        ]);
 
-        ]
-        );
+
     
         Product::where('id', $id)->update([
             'product_name' => $request->product_name,
@@ -132,8 +133,14 @@ class ProductController extends Controller
         ]);
     
         return redirect()->route('product');
-
     }
+    
+
+
+
+
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -151,7 +158,7 @@ class ProductController extends Controller
     {
 
         $product = Product::findOrfail($id);
-        $cart = session()->get('cart', [] );
+        $cart = session()->get('cart', []);
 
         if (isset($cart[$id])) {
             $cart[$id]['stock']++;
@@ -169,9 +176,9 @@ class ProductController extends Controller
         session()->put('cart', $cart);
         return redirect()->route('cart');
     }
-    
-    
-    
+
+
+
 
     public function cart()
     {
@@ -184,59 +191,53 @@ class ProductController extends Controller
             return redirect()->route('home');
         }
     }
-    
+
 
     public function deletecart($id)
     {
         $cart = session()->get('cart');
-        if(isset($cart[$id])){
+        if (isset($cart[$id])) {
             unset($cart[$id]);
         }
-        session()->put('cart',$cart);
+        session()->put('cart', $cart);
         return redirect()->route('cart');
     }
-    
+
     public function updatecart(Request $request)
     {
         $id = $request->id;
         $stock = $request->stock;
-    
+
         $cart = session()->get('cart');
         if (isset($cart[$id])) {
             $cart[$id]['stock'] = $stock;
         }
         session()->put('cart', $cart);
-    
+
         return redirect()->route('cart');
     }
-    
-    
+
+
     public function checkCartQuantity()
     {
         $cart = session()->get('cart');
-        $cartQuantityMatches = true; 
-    
+        $cartQuantityMatches = true;
+
         foreach ($cart as $id => $details) {
             $product = Product::find($id);
-            
+
             if (!$product || $details['stock'] > $product->stock) {
-                $cartQuantityMatches = false; 
+                $cartQuantityMatches = false;
 
                 session()->flash('cartQuantityMatches', false);
-                session()->flash('cartMessages.'.$id, [
+                session()->flash('cartMessages.' . $id, [
                     'product_id' => $id,
                     'product_name' => $details['product_name'],
-                    'remaining_stock' => $product ? $product->stock : 0 
+                    'remaining_stock' => $product ? $product->stock : 0
                 ]);
             }
         }
-    
+
         return $cartQuantityMatches;
     }
-
-
-
-
-
-
 }

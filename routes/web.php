@@ -36,7 +36,7 @@ Route::middleware([
     
 
     //แสดงรายการสินค้า
-    Route::get('/show',[ProductController::class,'show'])->name('show');
+    Route::get('/show', [ProductController::class, 'show'])->name('show');
 
     //รถเข็น
     Route::get('/cart',[ProductController::class,'cart'])->name('cart');
@@ -53,10 +53,6 @@ Route::middleware([
     Route::get('/order',[OrderController::class,'index'])->name('order');
 
     Route::get('/user_orders', [OrderController::class, 'userOrders'])->name('user_orders');
-
-
-
-
 
     Route::post('/insertorder',[OrderController::class,'create'])->name('insertorder');
 
@@ -81,7 +77,8 @@ Route::middleware([
         Route::get('/destroy/{id}',[ProductController::class,'destroy'])->name('delete');
         
         //แสดงฟอร์มสำหรับแก้ไขสินค้า และแก้ไขสินค้า
-        Route::get('/edit/{id}',[ProductController::class,'edit'])->name('edit');
+        Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('edit');
+
         Route::post('/update/{id}',[ProductController::class,'update'])->name('update');
 
         //แสดงรายการสั่งซื้อทั้งหมด

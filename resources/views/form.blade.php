@@ -1,4 +1,6 @@
 <x-app-layout>
+    @section('title', 'เพิ่มสินค้า')
+
     <script>
         function confirmproduct() {
             var confirmed = confirm('ต้องการเพิ่มสินค้า หรือไม่ ? ');

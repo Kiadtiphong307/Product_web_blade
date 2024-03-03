@@ -11,7 +11,11 @@
                                 <tr>
                                     <th scope="col"
                                         class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        ลำดับ
+                                        รหัสผู้ใช้งาน
+                                    </th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        โปรไฟล์
                                     </th>
                                     <th scope="col"
                                         class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -43,6 +47,9 @@
                                     <tr>
                                         <td class="px-2 py-4 whitespace-nowrap text-xs font-medium text-gray-500">
                                             {{ $User->id }}
+                                        </td>
+                                        <td class="px-2 py-4 whitespace-nowrap text-xs font-medium text-gray-500">
+                                            <img src="{{ $User->profile_photo_url }}" alt="{{ $User->name }}" class="h-10 w-10 rounded-full">
                                         </td>
                                         <td class="px-2 py-4 whitespace-nowrap text-xs font-medium text-gray-500">
                                             {{ $User->name }}
